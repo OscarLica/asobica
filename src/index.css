@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-billar: #0d5d3f;
+    --color-dark: #1a1a1a;
+    --color-dark-secondary: #2d2d2d;
+    --color-gold: #d4af37;
+    --color-light: #ffffff;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-emerald-700 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-gray-700 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-gray-900 border border-gray-800 rounded-lg shadow-xl;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:border-yellow-600 hover:shadow-lg hover:shadow-yellow-500/10;
+  }
+
+  .table-cell {
+    @apply px-4 py-3 text-sm;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500 transition-all duration-300;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-900 text-emerald-200 border border-emerald-700;
+  }
+
+  .badge-danger {
+    @apply badge bg-red-900 text-red-200 border border-red-700;
+  }
+
+  .badge-gold {
+    @apply badge bg-yellow-900 text-yellow-200 border border-yellow-700;
+  }
+}
+
