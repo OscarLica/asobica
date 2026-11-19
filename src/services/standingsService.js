@@ -4,8 +4,10 @@ export const standingsService = {
         const { data, error } = await supabase
             .from('standings_view')
             .select('*')
+            .order('games_won', { ascending: false })
             .order('points_won', { ascending: false })
-            .order('tables_avg', { ascending: false });
+            .order('tables_avg', { ascending: false })
+            .order('games_avg', { ascending: false });
         if (error)
             throw error;
         return data || [];
