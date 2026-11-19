@@ -4,7 +4,7 @@ export const standingsService = {
         const { data, error } = await supabase
             .from('standings_view')
             .select('*')
-            .order('points_avg', { ascending: false })
+            .order('points_won', { ascending: false })
             .order('tables_avg', { ascending: false });
         if (error)
             throw error;
