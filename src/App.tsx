@@ -49,6 +49,7 @@ export function App() {
         {/* Rutas Públicas */}
         <Route path="/" element={<StandingsPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/equipos/:teamId/juegos" element={<GamesPage readOnly />} />
 
         {/* Rutas Administrativas */}
         <Route
@@ -63,11 +64,7 @@ export function App() {
         {/* Gestión de Juegos */}
         <Route
           path="/admin/juegos"
-          element={
-            <ProtectedRoute>
-              <GamesPage />
-            </ProtectedRoute>
-          }
+          element={<GamesPage />}
         />
         <Route
           path="/admin/juegos/nuevo"

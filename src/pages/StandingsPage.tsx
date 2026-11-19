@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { standingsService } from '@/services/standingsService';
 import { TeamStats } from '@/types';
+import { Link } from 'react-router-dom';
 
 export function StandingsPage() {
   const [standings, setStandings] = useState<TeamStats[]>([]);
@@ -24,6 +25,11 @@ export function StandingsPage() {
       setLoading(false);
     }
   };
+
+  const bestTablesAverage = standings.reduce<TeamStats | null>(
+    (best, team) => best === null || team.tables_avg > best.tables_avg ? team : best,
+    null
+  );
 
   return (
     <Layout>
@@ -58,8 +64,13 @@ export function StandingsPage() {
                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-300">PJ</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-green-400">G</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-red-400">P</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-billar">Prom.</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-yellow-400">Pts.</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-billar">Prom. juegos</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-yellow-400">Pts. ganados</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-400">Mesas jugadas</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-400">Mesas ganadas</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-400">Mesas perdidas</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-400">Dif. mesas</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-400">Prom. mesas</th>
                 </tr>
               </thead>
               <tbody>
@@ -76,7 +87,11 @@ export function StandingsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
+                      <Link
+                        to={`/equipos/${team.id}/juegos`}
+                        aria-label={`Ver juegos de ${team.name}`}
+                        className="flex items-center gap-3 font-medium text-white hover:text-gold hover:underline"
+                      >
                         {team.logo_url ? (
                           <img
                             src={team.logo_url}
@@ -88,8 +103,8 @@ export function StandingsPage() {
                             🎱
                           </div>
                         )}
-                        <span className="font-medium text-white">{team.name}</span>
-                      </div>
+                        <span>{team.name}</span>
+                      </Link>
                     </td>
                     <td className="px-6 py-4 text-center text-gray-300">{team.games_played}</td>
                     <td className="px-6 py-4 text-center">
@@ -106,6 +121,12 @@ export function StandingsPage() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-yellow-400 font-bold">{team.points_won}</span>
                     </td>
+
+                    <td className="px-6 py-4 text-center text-blue-300">{team.tables_played}</td>
+                    <td className="px-6 py-4 text-center text-blue-400 font-semibold">{team.tables_won}</td>
+                    <td className="px-6 py-4 text-center text-blue-400">{team.tables_lost}</td>
+                    <td className="px-6 py-4 text-center text-blue-400 font-semibold">{team.tables_difference}</td>
+                    <td className="px-6 py-4 text-center text-blue-300">{team.tables_avg.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -118,12 +139,12 @@ export function StandingsPage() {
       {standings.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           <div className="card p-6">
-            <h3 className="text-lg font-semibold text-white mb-3">Líder de Juegos</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Líder por promedio de puntos</h3>
             <p className="text-2xl font-bold text-gold">
               {standings[0]?.name}
             </p>
             <p className="text-sm text-gray-400 mt-2">
-              {standings[0]?.games_won} - {standings[0]?.games_lost}
+              {standings[0]?.points_avg.toFixed(2)} puntos por juego
             </p>
           </div>
 
@@ -138,12 +159,12 @@ export function StandingsPage() {
           </div>
 
           <div className="card p-6">
-            <h3 className="text-lg font-semibold text-white mb-3">Mejor Promedio</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">Mejor promedio de mesas</h3>
             <p className="text-2xl font-bold text-emerald-400">
-              {standings[0]?.games_avg.toFixed(3)}
+              {bestTablesAverage?.tables_avg.toFixed(2)}
             </p>
             <p className="text-sm text-gray-400 mt-2">
-              {standings[0]?.name}
+              {bestTablesAverage?.name}
             </p>
           </div>
         </div>

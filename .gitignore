@@ -23,3 +23,8 @@ coverage/
 
 # Supabase
 /supabase/
+!/supabase/
+/supabase/*
+!/supabase/migrations/
+/supabase/migrations/*
+!/supabase/migrations/004_update_standings_view.sql

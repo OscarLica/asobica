@@ -37,21 +37,19 @@ export function Navigation({ isAdmin = false, onLogout }: NavigationProps) {
             >
               Posiciones
             </Link>
+            <Link
+              to="/admin/juegos"
+              className="text-gray-300 hover:text-white transition-colors font-medium"
+            >
+              Juegos
+            </Link>
             {isAdmin && (
-              <>
-                <Link 
-                  to="/admin" 
-                  className="text-gray-300 hover:text-white transition-colors font-medium"
-                >
-                  Panel Admin
-                </Link>
-                <Link 
-                  to="/admin/juegos" 
-                  className="text-gray-300 hover:text-white transition-colors font-medium"
-                >
-                  Juegos
-                </Link>
-              </>
+              <Link
+                to="/admin"
+                className="text-gray-300 hover:text-white transition-colors font-medium"
+              >
+                Panel Admin
+              </Link>
             )}
           </div>
 
@@ -90,6 +88,12 @@ export function Navigation({ isAdmin = false, onLogout }: NavigationProps) {
             >
               Posiciones
             </Link>
+            <Link
+              to="/admin/juegos"
+              className="block text-gray-300 hover:text-white transition-colors"
+            >
+              Juegos
+            </Link>
             {isAdmin && (
               <>
                 <Link 
@@ -97,12 +101,6 @@ export function Navigation({ isAdmin = false, onLogout }: NavigationProps) {
                   className="block text-gray-300 hover:text-white transition-colors"
                 >
                   Panel Admin
-                </Link>
-                <Link 
-                  to="/admin/juegos" 
-                  className="block text-gray-300 hover:text-white transition-colors"
-                >
-                  Juegos
                 </Link>
                 <button
                   onClick={handleLogout}

@@ -43,9 +43,13 @@ export function StandingsTable() {
               <th className="px-4 py-4 text-left text-sm font-bold text-gold">Equipo</th>
               <th className="px-4 py-4 text-center text-sm font-bold text-emerald-400">Juegos</th>
               <th className="px-4 py-4 text-center text-sm font-bold text-emerald-400">Prom. J</th>
-              <th className="px-4 py-4 text-center text-sm font-bold text-blue-400">Mesas</th>
+              <th className="px-4 py-4 text-center text-sm font-bold text-blue-400">Mesas jugadas</th>
+              <th className="px-4 py-4 text-center text-sm font-bold text-blue-400">Ganadas</th>
+              <th className="px-4 py-4 text-center text-sm font-bold text-blue-400">Perdidas</th>
+              <th className="px-4 py-4 text-center text-sm font-bold text-blue-400">Diferencia</th>
               <th className="px-4 py-4 text-center text-sm font-bold text-blue-400">Prom. M</th>
-              <th className="px-4 py-4 text-right text-sm font-bold text-yellow-400">Puntos</th>
+              <th className="px-4 py-4 text-right text-sm font-bold text-yellow-400">Pts. ganados</th>
+              <th className="px-4 py-4 text-right text-sm font-bold text-yellow-400">Prom. pts.</th>
             </tr>
           </thead>
           <tbody>
@@ -84,14 +88,26 @@ export function StandingsTable() {
                 </td>
                 <td className="px-4 py-4 text-center">
                   <span className="text-blue-400 font-bold">
-                    {team.tables_won}-{team.tables_lost}
+                    {team.tables_played}
                   </span>
                 </td>
                 <td className="px-4 py-4 text-center">
-                  <span className="text-blue-400">{(team.tables_avg * 100).toFixed(1)}%</span>
+                  <span className="text-blue-400 font-bold">{team.tables_won}</span>
+                </td>
+                <td className="px-4 py-4 text-center">
+                  <span className="text-blue-400">{team.tables_lost}</span>
+                </td>
+                <td className="px-4 py-4 text-center">
+                  <span className="text-blue-400 font-bold">{team.tables_difference}</span>
+                </td>
+                <td className="px-4 py-4 text-center">
+                  <span className="text-blue-400">{team.tables_avg.toFixed(2)}</span>
                 </td>
                 <td className="px-4 py-4 text-right">
                   <span className="text-yellow-400 font-bold">{team.points_won}</span>
+                </td>
+                <td className="px-4 py-4 text-right">
+                  <span className="text-yellow-400">{team.points_avg.toFixed(2)}</span>
                 </td>
               </tr>
             ))}
@@ -127,22 +143,26 @@ export function StandingsTable() {
               </div>
               <div className="text-right">
                 <div className="text-yellow-400 font-bold">{team.points_won}</div>
-                <div className="text-xs text-gray-400">puntos</div>
+                <div className="text-xs text-gray-400">prom. {team.points_avg.toFixed(2)}</div>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 text-xs">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
               <div className="bg-gray-800/50 p-2 rounded">
                 <div className="text-emerald-400 font-bold">{team.games_won}W</div>
                 <div className="text-gray-400">{(team.games_avg * 100).toFixed(0)}%</div>
               </div>
               <div className="bg-gray-800/50 p-2 rounded">
-                <div className="text-blue-400 font-bold">{team.tables_won}M</div>
-                <div className="text-gray-400">{(team.tables_avg * 100).toFixed(0)}%</div>
+                <div className="text-blue-400 font-bold">{team.tables_won}-{team.tables_lost}</div>
+                <div className="text-gray-400">{team.tables_played} jugadas</div>
+              </div>
+              <div className="bg-gray-800/50 p-2 rounded">
+                <div className="text-blue-400 font-bold">{team.tables_difference}</div>
+                <div className="text-gray-400">dif. / prom. {team.tables_avg.toFixed(2)}</div>
               </div>
               <div className="bg-gray-800/50 p-2 rounded">
                 <div className="text-gray-300 font-bold">{team.games_played}J</div>
-                <div className="text-gray-400">jugados</div>
+                <div className="text-gray-400">prom. pts. {team.points_avg.toFixed(2)}</div>
               </div>
             </div>
           </div>

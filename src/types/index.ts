@@ -54,6 +54,7 @@ export interface TeamStats {
   tables_won: number;
   tables_lost: number;
   tables_played: number;
+  tables_difference: number;
   tables_avg: number;
   total_points: number;
   points_won: number;

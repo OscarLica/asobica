@@ -143,7 +143,8 @@ VALUES ('[USER_ID]', '[EMAIL]', 'admin');
 
 1. Abre `http://localhost:3000`
 2. Visualiza la tabla de posiciones
-3. Haz clic en un equipo para ver más detalles
+3. Haz clic en un equipo para ver sus juegos en modo de solo lectura
+4. En **Juegos**, busca por nombre de equipo para filtrar los encuentros
 
 ### Para Administradores
 

@@ -88,25 +88,21 @@ export function NewGamePage() {
         ? formData.away_team_id
         : undefined;
 
-      // Asegurar que las mesas ganadas sean inversas
-      const away_tables_won = formData.home_tables_won;
-      const home_tables_won = formData.away_tables_won;
-
       const gameData = {
         home_team_id: formData.home_team_id,
         away_team_id: formData.away_team_id,
         game_date: formData.game_date,
         home_team_final_points: formData.home_team_final_points,
         away_team_final_points: formData.away_team_final_points,
-        home_tables_won,
-        away_tables_won,
+        home_tables_won: formData.home_tables_won,
+        away_tables_won: formData.away_tables_won,
         winner_team_id,
       };
 
       if (isEditing && id) {
         await gameService.update(id, gameData);
       } else {
-        await gameService.create(gameData as any);
+        await gameService.create(gameData);
       }
 
       navigate('/admin/juegos');
@@ -233,22 +229,8 @@ export function NewGamePage() {
 
           <div className="border-t border-gray-700 pt-6">
             <h3 className="text-lg font-semibold text-white mb-4">Mesas Ganadas</h3>
-            <p className="text-xs text-gray-400 mb-4">Las mesas ganadas del equipo visitante serán las perdidas del equipo local</p>
+            <p className="text-xs text-gray-400 mb-4">Registra las mesas ganadas por cada equipo.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Mesas Ganadas {formData.away_team_id && `(${teams.find(t => t.id === formData.away_team_id)?.name})`}
-                </label>
-                <input
-                  type="number"
-                  name="away_tables_won"
-                  value={formData.away_tables_won}
-                  onChange={handleChange}
-                  min="0"
-                  className="input-field w-full"
-                />
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Mesas Ganadas {formData.home_team_id && `(${teams.find(t => t.id === formData.home_team_id)?.name})`}
@@ -259,6 +241,23 @@ export function NewGamePage() {
                   value={formData.home_tables_won}
                   onChange={handleChange}
                   min="0"
+                  step="1"
+                  required
+                  className="input-field w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Mesas Ganadas {formData.away_team_id && `(${teams.find(t => t.id === formData.away_team_id)?.name})`}
+                </label>
+                <input
+                  type="number"
+                  name="away_tables_won"
+                  value={formData.away_tables_won}
+                  onChange={handleChange}
+                  min="0"
+                  step="1"
+                  required
                   className="input-field w-full"
                 />
               </div>
